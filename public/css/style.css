@@ -1,0 +1,480 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.controls {
+  flex: 1;
+  min-width: 300px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  order: 2;
+}
+
+.visualization {
+  flex: 2;
+  min-width: 600px;
+  order: 1;
+  position: relative;
+}
+
+#mapContainer {
+  width: 100%;
+  height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.node-controls,
+.edge-controls,
+.node-list,
+.edge-list {
+  margin-bottom: 20px;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer !important;
+  transition: background-color 0.3s, transform 0.1s;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  cursor: pointer !important;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.optimize-button {
+  background-color: #2196f3;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.optimize-button:hover {
+  background-color: #0b7dda;
+}
+
+.clear-button {
+  background-color: #f44336;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.clear-button:hover {
+  background-color: #d32f2f;
+}
+
+.sample-button {
+  background-color: #673ab7;
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+}
+
+.sample-button:hover {
+  background-color: #5e35b1;
+}
+
+.export-button {
+  background-color: #607d8b;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.export-button:hover {
+  background-color: #455a64;
+}
+
+.import-button {
+  background-color: #ff9800;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.import-button:hover {
+  background-color: #f57c00;
+}
+
+.test-button {
+  background-color: #9c27b0;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.test-button:hover {
+  background-color: #7b1fa2;
+}
+
+.results {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #e8f5e9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+ul {
+  list-style-type: none;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+li {
+  padding: 8px 5px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li button {
+  background-color: #f44336;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.location-search {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  order: 0;
+  width: 100%;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+}
+
+.search-container input {
+  flex: 1;
+  margin: 0;
+}
+
+.search-container button {
+  width: auto;
+}
+
+.location-search button {
+  background-color: #2196f3;
+  white-space: nowrap;
+}
+
+.location-search button:hover {
+  background-color: #0b7dda;
+}
+
+.edge-weight {
+  background: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Connection Mode Styling - FIXED */
+.connecting-mode {
+  cursor: crosshair !important;
+}
+
+/* FIXED: Better marker styling */
+.leaflet-marker-icon {
+  cursor: pointer !important;
+}
+
+.building-marker-wrapper {
+  cursor: pointer !important;
+}
+
+/* Make the marker div appear correctly */
+.building-marker {
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  background-color: #69b3a2;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer !important;
+  z-index: 500;
+  display: block;
+  position: relative;
+  top: -9px;
+  left: -9px;
+}
+
+.building-marker:hover {
+  transform: scale(1.3);
+  background-color: #4a90e2;
+  z-index: 900 !important;
+}
+
+.building-marker.active {
+  background-color: #ff6600 !important;
+  transform: scale(1.5);
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.6);
+  animation: pulse 1.5s infinite;
+  z-index: 1000 !important;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 102, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0);
+  }
+}
+
+.building-label {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none !important;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.connection-distance-tooltip {
+  background: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+  font-size: 12px !important;
+  padding: 3px 6px !important;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) !important;
+  color: #333 !important;
+}
+
+.map-status-indicator {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.map-status-indicator.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px);
+  pointer-events: none;
+}
+
+.map-status-indicator.info {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  border-left: 4px solid #2196f3;
+}
+
+.map-status-indicator.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 4px solid #4caf50;
+}
+
+.map-status-indicator.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #f44336;
+}
+
+/* Help tooltip */
+.help-tooltip {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  padding: 10px 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 300px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.help-tooltip h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.help-tooltip p {
+  margin: 0 0 5px 0;
+  color: #666;
+}
+
+.help-tooltip kbd {
+  background: #eee;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 2px 4px;
+  font-size: 10px;
+}
+
+/* FIXED: Improved mode indicator */
+.mode-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  z-index: 1000;
+  font-size: 12px;
+}
+
+.mode-indicator div {
+  padding: 6px 12px;
+  opacity: 0.5;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.mode-indicator div.active {
+  opacity: 1;
+  background-color: #f5f5f5;
+}
+
+.mode-normal.active {
+  color: #4caf50;
+  border-bottom: 2px solid #4caf50;
+}
+
+.mode-connecting.active {
+  color: #ff6600;
+  border-bottom: 2px solid #ff6600;
+  animation: pulse-text 1.5s infinite;
+}
+
+@keyframes pulse-text {
+  0% {
+    background-color: rgba(255, 102, 0, 0.05);
+  }
+  50% {
+    background-color: rgba(255, 102, 0, 0.15);
+  }
+  100% {
+    background-color: rgba(255, 102, 0, 0.05);
+  }
+}
+
+.hint {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  border-top: 1px solid #eee;
+}
+
+.copyright {
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+@media (max-width: 1000px) {
+  main {
+    flex-direction: column;
+  }
+
+  .controls,
+  .visualization {
+    width: 100%;
+    order: 0;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container button {
+    width: 100%;
+  }
+}

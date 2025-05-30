@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Network Optimizer</title>
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Campus Network Optimizer</h1>
+      <p>Design the most cost-effective network using Kruskal's Algorithm</p>
+    </header>
+
+    <main>
+      <div class="visualization">
+        <div id="mapContainer"></div>
+
+        <div class="help-tooltip">
+          <h4>Quick Tips:</h4>
+          <p><strong>Add building:</strong> Click on map</p>
+          <p>
+            <strong>Connect buildings:</strong> Click one building, then another
+          </p>
+          <p>
+            <strong>Cancel connection:</strong> Press <kbd>ESC</kbd> or click
+            map
+          </p>
+          <p><strong>Move building:</strong> Drag and drop</p>
+        </div>
+
+        <div id="mode-indicator" class="mode-indicator">
+          <div class="mode-normal active">Normal Mode</div>
+          <div class="mode-connecting">Connection Mode</div>
+        </div>
+      </div>
+
+      <div class="location-search">
+        <h3>Find Location</h3>
+        <div class="search-container">
+          <input
+            type="text"
+            id="locationSearch"
+            placeholder="Enter address or campus name"
+          />
+          <button id="searchBtn">Search</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="node-controls">
+          <h3>Add Building (Node)</h3>
+          <input type="text" id="nodeName" placeholder="Building Name" />
+          <button id="addNodeBtn">Add Building</button>
+          <p class="hint">
+            Name a building then click on the map to place it, or click directly
+            to create an unnamed building.
+          </p>
+        </div>
+
+        <div class="node-list">
+          <h3>Buildings</h3>
+          <ul id="nodesList"></ul>
+        </div>
+
+        <div class="edge-controls">
+          <h3>Add Connection (Edge)</h3>
+          <p class="hint">
+            Click on one building and then another to connect them directly, or
+            use the selectors below:
+          </p>
+          <select id="sourceNode">
+            <option value="">Select Source Building</option>
+          </select>
+          <select id="targetNode">
+            <option value="">Select Target Building</option>
+          </select>
+          <input
+            type="number"
+            id="edgeWeight"
+            placeholder="Cost (leave empty for auto)"
+          />
+          <button id="addEdgeBtn">Add Connection</button>
+        </div>
+
+        <div class="edge-list">
+          <h3>Connections</h3>
+          <ul id="edgesList"></ul>
+        </div>
+
+        <button id="loadSampleBtn" class="sample-button">
+          Load Sample Data
+        </button>
+        <button id="optimizeBtn" class="optimize-button">
+          Find Optimal Network
+        </button>
+        <button id="clearBtn" class="clear-button">Clear All</button>
+        <button id="exportBtn" class="export-button">Export Network</button>
+        <button id="importBtn" class="import-button">Import Network</button>
+
+        <!-- Connection Mode Test Button -->
+        <button id="testConnectionBtn" class="test-button">
+          Test Connection Mode
+        </button>
+      </div>
+    </main>
+
+    <div id="results" class="results hidden">
+      <h2>Optimization Results</h2>
+      <p>Total minimum cost: <span id="totalCost">0</span></p>
+      <h3>Connections to build:</h3>
+      <ul id="mstList"></ul>
+    </div>
+
+    <footer>
+      <p>
+        Campus Network Optimizer using Kruskal's Algorithm for Minimum Spanning
+        Tree
+      </p>
+      <p class="copyright">© 2025 Campus Network Optimizer</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/kruskal.js"></script>
+    <script src="js/mapHandler.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
