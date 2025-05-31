@@ -35,7 +35,7 @@ Created by [Sribatsha Dash](https://github.com/srivtx), this project demonstrate
 ![Connection Mode](./connection-mode.png)
 *Creating connections between buildings using the mouse*
 
-![Optimized Network](./network-optimizer.png)
+![Optimized Network](./connection-mode.png)
 *The optimized network after running Kruskal's algorithm*
 
 ## 🚀 Getting Started
